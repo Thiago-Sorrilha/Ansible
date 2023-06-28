@@ -1,0 +1,53 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: yes # nao executa os facts
+
+  vars:
+    default_dir: /opt/custom
+    dict_dir: {
+      scripts: "{{ default_dir }}/scripts",
+      backup: "{{ default_dir }}/backup",
+      log: "{{ default_dir }}/log",
+      temp: "{{ default_dir }}/temp",
+    }
+
+  tasks:
+  - name: "Instalar wget centos"
+    yum:
+      update_cache: yes
+      name: "wget"
+      state: present
+    when: (ansible_facts['distribution'] == "CentOS")
+
+  - name: "Define hostname Servidores"
+    hostname:
+      name: "{{ hostname }}"
+
+  - name: "Criar diretorio padrao nos servidores"
+    file:
+      path: "{{ item }}"
+      state: directory
+    with_items:
+    - "{{ dict_dir.scripts}}"
+    - "{{ dict_dir.backup}}"
+    - "{{ dict_dir.log}}"
+    - "{{ dict_dir.temp}}"
+
+  - name: "Criar arquivo simples"
+    file:
+      path: "{{ default_dir }}/teste.py"
+      state: touch
+      owner: vagrant
+      group: vagrant
+      mode: 0755
+      modification_time: preserve
+      access_time: preserve
+
+  - name: "Exemplo de Register"
+    shell: "date -u"
+    register: linux_date
+
+  - name: "Exibindo o register"
+    debug:
+      msg: "{{ linux_date.start }}"

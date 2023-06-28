@@ -1,0 +1,31 @@
+[debian]
+192.168.56.110 hostname=ServerDebian1
+192.168.56.120 hostname=ServerDebian2
+
+[centos]
+192.168.56.130 hostname=servercentos3
+
+[master]
+192.168.56.174 hostname=tstmaster
+
+[nodes]
+#192.168.56.171 hostname=tstnode1
+#192.168.56.172 hostname=tstnode2
+192.168.56.103 hostname=node3
+
+#Config de acesso vagrant
+[debian:vars]
+ansible_user=vagrant
+ansible_password=sorrilha
+
+[centos:vars]
+ansible_user=vagrant
+ansible_password=sorrilha
+
+[master:vars]
+ansible_user=vagrant
+ansible_password=sorrilha
+
+[nodes:vars]
+ansible_user=vagrant
+ansible_password=sorrilha

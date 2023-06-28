@@ -1,0 +1,7 @@
+---
+# vars file for apache
+ site_folder: "/var/www/thiago_local"
+ site_url: "www.thiago.local"
+ site_domain: "thiago.local"
+ log_prefix: "thiago-local"
+ php_version: "7.3"
